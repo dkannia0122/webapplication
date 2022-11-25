@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx-web
+spec:
+  selector:
+    matchLabels:
+      app: nginx-web
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: nginx
+          image: dkannia0122/webapplication/
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  Lables:
+    app: nginx-web
+spec:
+  selector: 
+    app: nginx-web
+  ports:
+  - port: 80
+    targetport: 80
+  type: LoadBalancer
